@@ -5,6 +5,8 @@ from .services import open_file
 
 
 def get_list_video(request):
+    if request.path == '/vote/':
+        return render(request, 'video_hosting/home.html', {'video_list': Video.objects.exclude(category='Full')})
     return render(request, 'video_hosting/home.html', {'video_list': Video.objects.all()})
 
 

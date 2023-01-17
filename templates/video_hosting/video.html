@@ -11,6 +11,13 @@
           <span class="date">{{ video.create_at }}</span>
           <h4><a href="{% url 'video' video.id %}">{{ video.title }}</a></h4>
           <p>{{ video.description }}</p>
+          <div class="star-wrapper">
+            <a href="#" class="fas fa-star s1"></a>
+            <a href="#" class="fas fa-star s2"></a>
+            <a href="#" class="fas fa-star s3"></a>
+            <a href="#" class="fas fa-star s4"></a>
+            <a href="#" class="fas fa-star s5"></a>
+          </div>
         </div>
       </div>
       <div class="row">

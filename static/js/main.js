@@ -44,3 +44,4 @@ $(window).load(function () {
     bloggingisotope();
     $(window).smartresize(bloggingisotope)
 })
+
