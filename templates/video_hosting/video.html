@@ -1,25 +1,35 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <div class="main-posts">
+{% if 'video' %}
+    <div class="main-posts">
     <div class="container">
       <div class="row">
         <div class="col-md-6 col-sm-6">
           <img class="single-video" src="{{ video.image.url }}" alt="">
+          <a href="{% url 'home' %} "><button class="btn btn-primary mt-3">Next</button></a>
         </div>
-        <div class="col-md-6 col-sm-6">
+        <p class="col-md-6 col-sm-6">
           <span class="date">{{ video.create_at }}</span>
           <h4><a href="{% url 'video' video.id %}">{{ video.title }}</a></h4>
           <p>{{ video.description }}</p>
-          <div class="star-wrapper">
-            <a href="#" class="fas fa-star s1"></a>
-            <a href="#" class="fas fa-star s2"></a>
-            <a href="#" class="fas fa-star s3"></a>
-            <a href="#" class="fas fa-star s4"></a>
-            <a href="#" class="fas fa-star s5"></a>
+          <div class="col text-center">
+            <form class="rate-form" action="" method="POST">
+              {% csrf_token %}
+              <button type="submit" id="first"  class="fa fa-star fa-2x my-btn checked"></button>
+              <button type="submit" id="second" class="fa fa-star fa-2x my-btn checked"></button>
+              <button type="submit" id="third"  class="fa fa-star fa-2x my-btn checked"></button>
+              <button type="submit" id="fourth" class="fa fa-star fa-2x my-btn"></button>
+              <button type="submit" id="fifth"  class="fa fa-star fa-2x my-btn"></button>
+            </form>
           </div>
+        <br>
+          <div id="confirm-box">
+
+          </div>
+          <p>Рейтинг {{ rating.rate }}</p>
         </div>
-      </div>
+
       <div class="row">
         <div class="col-md-12 col-sm-12">
           <video
@@ -37,5 +47,8 @@
         </div>
       </div>
     </div>
-  </div>
+    </div>
+{% else %}
+  <h1>Больше нет видео для оценки</h1>
+{% endif %}
 {% endblock content %}

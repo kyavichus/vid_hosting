@@ -1,6 +1,6 @@
 from django.http import StreamingHttpResponse
 from django.shortcuts import render, get_object_or_404
-from .models import Video
+from .models import Video, Rating
 from .services import open_file
 
 
@@ -12,7 +12,8 @@ def get_list_video(request):
 
 def get_video(request, pk: int):
     _video = get_object_or_404(Video, id=pk)
-    return render(request, "video_hosting/video.html", {"video": _video})
+    _rating = get_object_or_404(Rating, vid_id=pk)
+    return render(request, "video_hosting/video.html", {"video": _video, 'rating': _rating})
 
 
 def get_streaming_video(request, pk: int):

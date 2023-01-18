@@ -15,3 +15,12 @@ class Video(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Rating(models.Model):
+    vid = models.ForeignKey('Video', on_delete=models.PROTECT, null=True)
+    rate = models.PositiveSmallIntegerField()
+
+    def __str__(self):
+        return f'rating = {self.rate}'
+
