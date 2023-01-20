@@ -107,6 +107,30 @@ const handleSelect = (selection) => {
     }
 }
 
+const getNumericValue = (stringValue) =>{
+    let numericValue;
+    if (stringValue === 'first') {
+        numericValue = 1
+    }
+    else if (stringValue === 'second') {
+        numericValue = 2
+    }
+    else if (stringValue === 'third') {
+        numericValue = 3
+    }
+    else if (stringValue === 'fourth') {
+        numericValue = 4
+    }
+    else if (stringValue === 'fifth') {
+        numericValue = 5
+    }
+    else {
+        numericValue = 0
+    }
+    return numericValue
+}
+
+
 if (one) {
     const arr = [one, two, three, four, five]
 
@@ -115,7 +139,32 @@ if (one) {
     }))
 
     arr.forEach(item=> item.addEventListener('click', (event)=>{
-        alert('clicked')
+        const val = event.target.id
+        form.addEventListener('submit', e=>{
+            e.preventDefault()
+            const id = e.target.id
+            console.log(id)
+            const val_num = getNumericValue(val)
+
+            $.ajax({
+                type: 'POST',
+                url: '/rate/',
+                date: {
+                    'csrfmiddlewaretoken': csrf[0].value,
+                    'el_id': id,
+                    'val': val_num,
+                },
+                success: function(response){
+                    console.log(response)
+                    confirmBox.innerHTML = '<span>Спасибо за оценку. </span>'
+//                    confirmBox.innerHTML = '<h1>Спасибо за оценку ${response.rate}. </h1>'
+                },
+                error: function(error) {
+                    console.log(error)
+                    confirmBox.innerHTML = '<span>Упс... Что-то пошло не так</span>'
+                }
+            })
+        })
     }))
 }
 

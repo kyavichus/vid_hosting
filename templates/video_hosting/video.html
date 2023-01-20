@@ -14,7 +14,7 @@
           <h4><a href="{% url 'video' video.id %}">{{ video.title }}</a></h4>
           <p>{{ video.description }}</p>
           <div class="col text-center">
-            <form class="rate-form" action="" method="POST">
+            <form class="rate-form" action="" method="POST" id="{{ video.id }} ">
               {% csrf_token %}
               <button type="submit" id="first"  class="fa fa-star fa-2x my-btn checked"></button>
               <button type="submit" id="second" class="fa fa-star fa-2x my-btn checked"></button>
@@ -22,9 +22,10 @@
               <button type="submit" id="fourth" class="fa fa-star fa-2x my-btn"></button>
               <button type="submit" id="fifth"  class="fa fa-star fa-2x my-btn"></button>
             </form>
+            <br>
+            <div id="confirm-box">
           </div>
-        <br>
-          <div id="confirm-box">
+
 
           </div>
           <p>Рейтинг {{ rating.rate }}</p>

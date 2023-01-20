@@ -1,4 +1,4 @@
-from django.http import StreamingHttpResponse
+from django.http import StreamingHttpResponse, JsonResponse
 from django.shortcuts import render, get_object_or_404
 from .models import Video, Rating
 from .services import open_file
@@ -25,4 +25,16 @@ def get_streaming_video(request, pk: int):
     response['Cache-Control'] = 'no-cache'
     response['Content-Range'] = content_range
     return response
+
+
+def rate_image(request):
+    if request.method == 'POST':
+        el_id = request.POST.get('el_id')
+        val = request.POST.get('val')
+        obj = Rating.objects.get(id=el_id)
+        obj.rate = val
+        obj.save()
+        return JsonResponse({'success': 'true', 'rate': val}, safe=False)
+    return JsonResponse({'success': 'false'})
+
 
