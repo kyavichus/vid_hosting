@@ -1,5 +1,7 @@
 from django.http import StreamingHttpResponse, JsonResponse
 from django.shortcuts import render, get_object_or_404
+from django.views.decorators.csrf import csrf_exempt
+
 from .models import Video, Rating
 from .services import open_file
 
@@ -27,11 +29,13 @@ def get_streaming_video(request, pk: int):
     response['Content-Range'] = content_range
     return response
 
-
+# @csrf_exempt
 def rate_image(request):
     if request.method == 'POST':
         el_id = request.POST.get('el_id')
+        print(el_id)
         val = request.POST.get('val')
+        # print(request.COOKIES)
         obj = Rating.objects.get(id=el_id)
         obj.rate = val
         obj.save()

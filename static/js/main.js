@@ -149,8 +149,11 @@ if (one) {
             $.ajax({
                 type: 'POST',
                 url: '/rate/',
+                headers: {
+                    "X-CSRFToken": csrf[0].value,
+                },
                 date: {
-                    'csrfmiddlewaretoken': csrf[0].value,
+                //    'csrfmiddlewaretoken': csrf[0].value,
                     'el_id': id,
                     'val': val_num,
                 },
