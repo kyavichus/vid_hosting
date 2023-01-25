@@ -12,7 +12,8 @@ def get_list_video(request):
 
 def get_video(request, pk: int):
     _video = get_object_or_404(Video, id=pk)
-    _rating = get_object_or_404(Rating, vid_id=pk)
+    #_rating = get_object_or_404(Rating, vid_id=pk)
+    _rating = Rating.objects.filter(vid_id=pk)
     return render(request, "video_hosting/video.html", {"video": _video, 'rating': _rating})
 
 
