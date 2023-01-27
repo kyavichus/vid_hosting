@@ -152,7 +152,7 @@ if (one) {
                 headers: {
                     "X-CSRFToken": csrf[0].value,
                 },
-                date: {
+                data: {
                 //    'csrfmiddlewaretoken': csrf[0].value,
                     'el_id': id,
                     'val': val_num,
