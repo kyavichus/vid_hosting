@@ -29,14 +29,34 @@
 <div class="site-top">
   <div class="site-header clearfix">
     <div class="container">
-      <a href="/" class="site-brand pull-left"><strong>Django</strong> video hosting</a>
-      <div class="social-icons pull-right">
+      <a href="/" class="site-brand pull-left"><strong>Vo</strong> video hosting</a>
+      <div class="nav-pills pull-right">
         <ul>
-          <li><a href="#" class="fa fa-facebook"></a></li>
-          <li><a href="#" class="fa fa-twitter"></a></li>
-          <li><a href="#" class="fa fa-behance"></a></li>
-          <li><a href="#" class="fa fa-dribbble"></a></li>
-          <li><a href="#" class="fa fa-google-plus"></a></li>
+<!--          <li><a href="#" class="fa fa-facebook"></a></li>-->
+<!--          <li><a href="#" class="fa fa-twitter"></a></li>-->
+<!--          <li><a href="#" class="fa fa-behance"></a></li>-->
+<!--          <li><a href="#" class="fa fa-dribbble"></a></li>-->
+<!--          <li><a href="#" class="fa fa-google-plus"></a></li>-->
+
+              <li class="">
+
+              </li>
+            {%  if user.is_authenticated %}
+              <li class="">
+                <a href="{% url 'logout' %}  " class="btn-danger ml-5">Выйти</a>
+              </li>
+              <li class="">
+                <a href=" " class="ml-5">{{ user }}</a>
+              </li>
+            {% else %}
+              <li class="">
+                <a href="{% url 'login' %}">Войти</a> |
+                <a href="{% url 'register' %} ">Регистрация</a>
+
+              </li>
+            {% endif %}
+
+
         </ul>
       </div>
 
@@ -51,14 +71,18 @@
   </div> <!-- .site-header -->
 </div> <!-- .site-top -->
 
+    <div class="main-posts">
+        <div class="container">
 {% block content %}
 {% endblock content %}
+        </div>
+   </div>
 <!-- FOOTER -->
 <footer class="site-footer">
   <div class="container">
     <div class="row">
       <div class="col-md-12 text-center">
-        <p class="copyright-text">Copyright &copy; 2084 Company Name
+        <p class="copyright-text">Copyright &copy; 2023 Neirox
           | Photos by <a rel="nofollow" href="http://neirox.tk">Truelyalya</a></p>
       </div>
     </div>

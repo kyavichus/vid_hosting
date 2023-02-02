@@ -7,6 +7,8 @@ from video_hosting.views import rate_image
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('video_hosting.urls')),
+    path('users', include('users.urls')),
+
 ]
 
 

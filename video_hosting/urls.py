@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
 
 
@@ -7,5 +7,6 @@ urlpatterns = [
     path('<int:pk>/', views.get_video, name='video'),
     path('', views.get_list_video, name='home'),
     path('vote/', views.get_list_video, name='home'),
-    path('rate/', views.rate_image, name='rate-view')
+    path('rate/', views.rate_image, name='rate-view'),
+    # path('login/', views.MyLoginView.as_view(), name='login_page'),
 ]

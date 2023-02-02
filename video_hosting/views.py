@@ -1,12 +1,16 @@
+from django.contrib.auth.views import LoginView
 from django.http import StreamingHttpResponse, JsonResponse
 from django.shortcuts import render, get_object_or_404
+from django.urls import reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
 
+from .forms import AuthUserForm
 from .models import Video, Rating
 from .services import open_file
 
 
 def get_list_video(request):
+    print(request.user)
     if request.path == '/vote/':
         return render(request, 'video_hosting/home.html', {'video_list': Video.objects.exclude(category='Full')})
     return render(request, 'video_hosting/home.html', {'video_list': Video.objects.all()})
@@ -35,6 +39,7 @@ def rate_image(request):
         el_id = request.POST.get('el_id')
         print(el_id)
         val = request.POST.get('val')
+        print(val)
         # print(request.COOKIES)
         obj = Rating.objects.get(id=el_id)
         obj.rate = val
