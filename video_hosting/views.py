@@ -5,21 +5,33 @@ from django.urls import reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
 
 from .forms import AuthUserForm
-from .models import Video, Rating
+from .models import Video, Rating, Category
 from .services import open_file
 
 
 def get_list_video(request):
-    print(request.user)
+    # slug = request.path.split('/')[-1]
+    category = Category.objects.all()
+    # print(request.user)
     if request.path == '/vote/':
-        return render(request, 'video_hosting/home.html', {'video_list': Video.objects.exclude(category='Full')})
-    return render(request, 'video_hosting/home.html', {'video_list': Video.objects.all()})
+        return render(request, 'video_hosting/home.html', {'video_list': Video.objects.exclude(category=1),
+                                                           'category': category})
+    return render(request, 'video_hosting/home.html', {'video_list': Video.objects.all().order_by('-id'),
+                                                       'category': category})
+
+
+def get_list_video_by_cat(request, slug):
+    # slug = request.path.split('/')[-1]
+    category = Category.objects.all()
+    print(slug)
+    return render(request, 'video_hosting/home.html', {'video_list': Video.objects.filter(category__slug=slug),
+                                                       'category': category})
 
 
 def get_video(request, pk: int):
     _video = get_object_or_404(Video, id=pk)
     #_rating = get_object_or_404(Rating, vid_id=pk)
-    _rating = Rating.objects.filter(vid_id=pk)
+    _rating = Rating.objects.filter(video_id=pk)
     return render(request, "video_hosting/video.html", {"video": _video, 'rating': _rating})
 
 
@@ -41,9 +53,10 @@ def rate_image(request):
         val = request.POST.get('val')
         print(val)
         # print(request.COOKIES)
-        obj = Rating.objects.get(id=el_id)
-        obj.rate = val
-        obj.save()
+        video = Video.objects.get(id=el_id)
+        Rating.objects.filter(video=video, user_id=request.user).delete()
+        video.rating_set.create(user_id=request.user, rating=val)
+
         return JsonResponse({'success': 'true', 'rate': val}, safe=False)
     return JsonResponse({'success': 'false'})
 

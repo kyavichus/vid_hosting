@@ -9,7 +9,7 @@
           <img class="single-video" src="{{ video.image.url }}" alt="">
           <a href="{% url 'home' %} "><button class="btn btn-primary mt-3">Next</button></a>
         </div>
-        <p class="col-md-6 col-sm-6">
+        <div class="col-md-6 col-sm-6">
           <span class="date">{{ video.create_at }}</span>
           <h4><a href="{% url 'video' video.id %}">{{ video.title }}</a></h4>
           <p>{{ video.description }}</p>
@@ -27,8 +27,9 @@
           </div>
 
 
-          </div>
-          <p>Рейтинг {{ rating.rate }}</p>
+          </div >
+          <p >Рейтинг {{ video.average_rating }}</p>
+          <p>{{ video.count_rating }} голосов</p>
         </div>
 
       <div class="row">

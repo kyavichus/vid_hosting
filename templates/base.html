@@ -31,23 +31,20 @@
     <div class="container">
       <a href="/" class="site-brand pull-left"><strong>Vo</strong> video hosting</a>
       <div class="nav-pills pull-right">
-        <ul>
+<!--        <ul>-->
 <!--          <li><a href="#" class="fa fa-facebook"></a></li>-->
 <!--          <li><a href="#" class="fa fa-twitter"></a></li>-->
 <!--          <li><a href="#" class="fa fa-behance"></a></li>-->
 <!--          <li><a href="#" class="fa fa-dribbble"></a></li>-->
 <!--          <li><a href="#" class="fa fa-google-plus"></a></li>-->
 
-              <li class="">
 
-              </li>
             {%  if user.is_authenticated %}
-              <li class="">
+<!--              <li class="">-->
                 <a href="{% url 'logout' %}  " class="btn-danger ml-5">Выйти</a>
-              </li>
-              <li class="">
+
                 <a href=" " class="ml-5">{{ user }}</a>
-              </li>
+<!--              </li>-->
             {% else %}
               <li class="">
                 <a href="{% url 'login' %}">Войти</a> |
@@ -57,22 +54,36 @@
             {% endif %}
 
 
-        </ul>
+<!--        </ul>-->
       </div>
 
     </div>
     <div class="container">
       <div class="menuBar">
-          <a href="/">Начальная |</a>
-          <a href="/vote">Голосование</a>
+          <a href="/">Все видео </a>|
+<!--          <a href="/vote">Голосование</a>-->
+            <div class="dropdown">
+                <a href="/vote">Голосование</a>
+                <div class="dropdown-content">
+                <ul>
+                    {% for cat in category %}
+                    <li class="">
+                        <a href="{{ cat.get_absolute_url }}">{{ cat }} </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+                </div>
+            </div>
+</div>
 
       </div>
     </div>
   </div> <!-- .site-header -->
 </div> <!-- .site-top -->
 
-    <div class="main-posts">
+
         <div class="container">
+    <div class="main-posts">
 {% block content %}
 {% endblock content %}
         </div>
