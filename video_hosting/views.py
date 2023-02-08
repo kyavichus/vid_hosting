@@ -19,7 +19,8 @@ def get_list_video(request):
     # print(request.user)
     if request.path == '/vote/':
         return render(request, 'video_hosting/home.html', {'video_list': Video.objects.exclude(category=1),
-                                                           'category': category})
+                                                           'category': category,
+                                                           'rating_table': rating_table})
     return render(request, 'video_hosting/home.html', {'video_list': Video.objects.all().order_by('-id'),
                                                        'category': category,
                                                         'rating_table': rating_table})

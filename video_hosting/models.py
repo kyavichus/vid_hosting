@@ -29,10 +29,11 @@ class Category(models.Model):
         return self.cat_name
 
 class Video(models.Model):
+
     title = models.CharField(max_length=100)
     category = models.ForeignKey('Category', on_delete=models.SET_DEFAULT, default=Category.FULL)
     description = models.TextField()
-    image = models.ImageField(default=" image/v330w.png", upload_to='image/')
+    image = models.ImageField(default="image/v330w.png", upload_to='image/')
     file = models.FileField(
         upload_to='video/',
         validators=[FileExtensionValidator(allowed_extensions=['mp4'])]

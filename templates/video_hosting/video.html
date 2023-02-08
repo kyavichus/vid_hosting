@@ -7,7 +7,7 @@
       <div class="row">
         <div class="col-md-3 col-sm-3">
           <img class="single-video" src="{{ video.image.url }}" alt="">
-          <a href="{% url 'home' %} "><button class="btn btn-primary mt-3">Next</button></a>
+
         </div>
         <div class="col-md-3 col-sm-3">
           <span class="date">{{ video.create_at }}</span>
@@ -16,9 +16,9 @@
           <div class="col text-center">
             <form class="rate-form" action="" method="POST" id="{{ video.id }} ">
               {% csrf_token %}
-              <button type="submit" id="first"  class="fa fa-star fa-2x my-btn checked"></button>
-              <button type="submit" id="second" class="fa fa-star fa-2x my-btn checked"></button>
-              <button type="submit" id="third"  class="fa fa-star fa-2x my-btn checked"></button>
+              <button type="submit" id="first"  class="fa fa-star fa-2x my-btn "></button>
+              <button type="submit" id="second" class="fa fa-star fa-2x my-btn "></button>
+              <button type="submit" id="third"  class="fa fa-star fa-2x my-btn "></button>
               <button type="submit" id="fourth" class="fa fa-star fa-2x my-btn"></button>
               <button type="submit" id="fifth"  class="fa fa-star fa-2x my-btn"></button>
             </form>
@@ -30,6 +30,7 @@
           </div >
           <p >Рейтинг {{ video.average_rating }}</p>
           <p>{{ video.count_rating }} голосов</p>
+          <a href="{% url 'home' %} "><button class="btn btn-primary mt-3">Next</button></a>
         </div>
 
         </div>
