@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html>
 {% load static %}
 <head>
   <meta charset="utf-8">
@@ -22,8 +23,8 @@
   <div id="loader"></div>
 </div>
 
-<div class="content-bg"></div>
-<div class="bg-overlay"></div>
+<!--<div class="content-bg"></div>-->
+<!--<div class="bg-overlay"></div>-->
 
 <!-- SITE TOP -->
 <div class="site-top">
@@ -46,11 +47,9 @@
                 <a href=" " class="ml-5">{{ user }}</a>
 <!--              </li>-->
             {% else %}
-              <li class="">
                 <a href="{% url 'login' %}">Войти</a> |
                 <a href="{% url 'register' %} ">Регистрация</a>
 
-              </li>
             {% endif %}
 
 
@@ -61,33 +60,79 @@
     <div class="container">
       <div class="menuBar">
           <a href="/">Все видео </a>|
-<!--          <a href="/vote">Голосование</a>-->
             <div class="dropdown">
                 <a href="/vote">Голосование</a>
-                <div class="dropdown-content">
-                <ul>
-                    {% for cat in category %}
-                    <li class="">
-                        <a href="{{ cat.get_absolute_url }}">{{ cat }} </a>
-                    </li>
-                    {% endfor %}
-                </ul>
-                </div>
+<!--                <div class="dropdown-content">-->
+<!--                <ul>-->
+<!--                    {% for cat in category %}-->
+<!--                    <li class="">-->
+<!--                        <a href="{{ cat.get_absolute_url }}">{{ cat }} </a>-->
+<!--                    </li>-->
+<!--                    {% endfor %}-->
+<!--                </ul>-->
+<!--                </div>-->
             </div>
 </div>
 
       </div>
-    </div>
   </div> <!-- .site-header -->
 </div> <!-- .site-top -->
 
+    <div class="container">
+<!--    <div class="main-posts ">-->
+	<div class="row">
+		<div class="sidebar col-sm-4 col-md-4">
+    <div class="mini-submenu">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </div>
+    <div class="list-group">
+        <span class="list-group-item active">
+            Категории
+            <span class="pull-right" id="slide-submenu">
+                <i class="fa fa-times"></i>
+            </span>
+        </span>
+        {% for cat in category %}
+        <a href="{{ cat.get_absolute_url }} " class="list-group-item">
+            <i class="fa fa-comment-o"></i> {{ cat }}
+        </a>
 
-        <div class="container">
-    <div class="main-posts">
+        {% endfor %}
+<!--        <a href="#" class="list-group-item">-->
+<!--            <i class="fa fa-folder-open-o"></i> Lorem ipsum <span class="badge">14</span>-->
+<!--        </a>-->
+    </div>
+    <div class="mini-submenu">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </div>
+    <div class="list-group">
+        <span class="list-group-item active">
+            Топ видео по категориям
+            <span class="pull-right" id="">
+                <i class="fa fa-times"></i>
+            </span>
+        </span>
+            {% for vid, rate in rating_table.items %}
+            <div>
+                <a href="{{ vid.get_absolute_url }}  " class="list-group-item">
+             {{ rate }} <i class="fa fa-star"></i>
+                </a>
+            </div>
+            {% endfor %}
+    </div>
+    </div>
+
 {% block content %}
 {% endblock content %}
+
+<!--   </div>-->
         </div>
-   </div>
+                </div>
+
 <!-- FOOTER -->
 <footer class="site-footer">
   <div class="container">

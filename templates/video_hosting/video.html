@@ -2,14 +2,14 @@
 
 {% block content %}
 {% if 'video' %}
-    <div class="main-posts">
-    <div class="container">
+<!--    <div class="main-posts">-->
+<!--    <div class="container">-->
       <div class="row">
-        <div class="col-md-6 col-sm-6">
+        <div class="col-md-3 col-sm-3">
           <img class="single-video" src="{{ video.image.url }}" alt="">
           <a href="{% url 'home' %} "><button class="btn btn-primary mt-3">Next</button></a>
         </div>
-        <div class="col-md-6 col-sm-6">
+        <div class="col-md-3 col-sm-3">
           <span class="date">{{ video.create_at }}</span>
           <h4><a href="{% url 'video' video.id %}">{{ video.title }}</a></h4>
           <p>{{ video.description }}</p>
@@ -32,15 +32,16 @@
           <p>{{ video.count_rating }} голосов</p>
         </div>
 
+        </div>
       <div class="row">
-        <div class="col-md-12 col-sm-12">
+        <div class="col-md-6 col-sm-3">
           <video
               id="my-video"
               class="video-js"
               controls
               preload="auto"
-              width="1000"
-              height="800"
+              width="800"
+              height="600"
               data-setup="{}"
           >
             <source src="{% url 'stream' video.id %}" type="video/mp4"/>
@@ -48,9 +49,10 @@
           </video>
         </div>
       </div>
-    </div>
-    </div>
+<!--    </div>-->
+<!--    </div>-->
 {% else %}
   <h1>Больше нет видео для оценки</h1>
 {% endif %}
+
 {% endblock content %}

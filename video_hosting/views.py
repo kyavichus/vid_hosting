@@ -1,4 +1,5 @@
 from django.contrib.auth.views import LoginView
+from django.db.models import Max
 from django.http import StreamingHttpResponse, JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
@@ -10,18 +11,21 @@ from .services import open_file
 
 
 def get_list_video(request):
-    # slug = request.path.split('/')[-1]
+    rating_table = {}
+    for cat in Category.objects.all()[1:]:
+        vid = Video.objects.filter(category=cat).order_by('rating').first()
+        rating_table[vid] = Rating.objects.filter(video=vid).first()
     category = Category.objects.all()
     # print(request.user)
     if request.path == '/vote/':
         return render(request, 'video_hosting/home.html', {'video_list': Video.objects.exclude(category=1),
                                                            'category': category})
     return render(request, 'video_hosting/home.html', {'video_list': Video.objects.all().order_by('-id'),
-                                                       'category': category})
+                                                       'category': category,
+                                                        'rating_table': rating_table})
 
 
 def get_list_video_by_cat(request, slug):
-    # slug = request.path.split('/')[-1]
     category = Category.objects.all()
     print(slug)
     return render(request, 'video_hosting/home.html', {'video_list': Video.objects.filter(category__slug=slug),

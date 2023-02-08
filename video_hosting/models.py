@@ -1,5 +1,4 @@
 from PIL import Image
-from django.contrib.auth.models import AbstractUser
 from django.core.validators import FileExtensionValidator
 from django.db import models
 from django.urls import reverse
@@ -20,7 +19,7 @@ class Category(models.Model):
         (ATTACK, ('Лучшая Атака'))
     ]
 
-    cat_name = models.CharField(max_length=100, choices=CAT_CHOICE, default=FULL)
+    cat_name = models.CharField(max_length=100, default="Full")
     slug = models.SlugField(max_length=255, unique=True, null=False)
 
     def get_absolute_url(self):
@@ -59,6 +58,8 @@ class Video(models.Model):
     def count_rating(self) -> int:
         return Rating.objects.filter(video=self).aggregate(Count("rating"))["rating__count"] or 0
 
+    def get_absolute_url(self):
+        return reverse("video", kwargs={"pk": self.pk})
 
 
 class Comment(models.Model):
