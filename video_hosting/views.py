@@ -1,4 +1,5 @@
 from django.contrib.auth.views import LoginView
+from django.core.paginator import Paginator
 from django.db.models import Max
 from django.http import StreamingHttpResponse, JsonResponse
 from django.shortcuts import render, get_object_or_404
@@ -16,14 +17,24 @@ def get_list_video(request):
         vid = Video.objects.filter(category=cat).order_by('rating').first()
         rating_table[vid] = Rating.objects.filter(video=vid).first()
     category = Category.objects.all()
+    page_num = request.GET.get('page', 1)
+
     # print(request.user)
     if request.path == '/vote/':
-        return render(request, 'video_hosting/home.html', {'video_list': Video.objects.exclude(category=1),
+        object_list = Video.objects.exclude(category=1)
+
+        paginator = Paginator(object_list, 24, orphans=6)
+        page_obj = paginator.page(page_num)
+        return render(request, 'video_hosting/home.html', {'video_list': page_obj,
                                                            'category': category,
                                                            'rating_table': rating_table})
-    return render(request, 'video_hosting/home.html', {'video_list': Video.objects.all().order_by('-id'),
+    object_list = Video.objects.all().order_by('-id')
+
+    paginator = Paginator(object_list, 24, orphans=3)
+    page_obj = paginator.page(page_num)
+    return render(request, 'video_hosting/home.html', {'video_list': page_obj,
                                                        'category': category,
-                                                        'rating_table': rating_table})
+                                                       'rating_table': rating_table})
 
 
 def get_list_video_by_cat(request, slug):

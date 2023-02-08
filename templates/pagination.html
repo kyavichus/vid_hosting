@@ -1,0 +1,31 @@
+<ul class="pagination justify-content-center">
+{% if video_list.has_previous %}
+  <li class="page-item"><a href="?page={{ video_list.previous_page_number }}">« Назад</a></li>
+
+  {% if video_list.number > 3 %}
+    <li class="page-item"><a href="?page=1">1</a></li>
+    {% if video_list.number > 4 %}
+      <span>...</span>
+    {% endif %}
+  {% endif %}
+{% endif %}
+
+{% for num in video_list.paginator.page_range %}
+  {% if video_list.number == num %}
+    <li class="page-item"><a href="?page={{ num }}">{{ num }}</a></li>
+  {% elif num > video_list.number|add:'-3' and num < video_list.number|add:'3' %}
+    <li class="page-item"><a href="?page={{ num }}">{{ num }}</a></li>
+  {% endif %}
+{% endfor %}
+
+{% if video_list.has_next %}
+  {% if video_list.number < video_list.paginator.num_pages|add:'-3' %}
+    <span>...</span>
+    <li class="page-item"><a href="?page={{ video_list.paginator.num_pages }}">{{ video_list.paginator.num_pages }}</a></li>
+  {% elif video_list.number < video_list.paginator.num_pages|add:'-2' %}
+    <li class="page-item"><a href="?page={{ video_list.paginator.num_pages }}">{{ video_list.paginator.num_pages }}</a></li>
+  {% endif %}
+
+  <li class="page-item"><a href="?page={{ video_list.next_page_number }}">Вперёд »</a></li>
+{% endif %}
+</ul>
