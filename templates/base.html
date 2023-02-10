@@ -61,18 +61,12 @@
       <div class="menuBar">
           <a href="/">Все видео </a>|
             <div class="dropdown">
-                <a href="/vote">Голосование</a>
-<!--                <div class="dropdown-content">-->
-<!--                <ul>-->
-<!--                    {% for cat in category %}-->
-<!--                    <li class="">-->
-<!--                        <a href="{{ cat.get_absolute_url }}">{{ cat }} </a>-->
-<!--                    </li>-->
-<!--                    {% endfor %}-->
-<!--                </ul>-->
-<!--                </div>-->
+                <a href="/vote">Голосование</a> |
             </div>
-</div>
+          {%  if user.is_staff %}
+          <a href="{% url 'video_new' %}">+ Видео</a>
+          {% endif %}
+        </div>
 
       </div>
   </div> <!-- .site-header -->
@@ -81,7 +75,7 @@
     <div class="container">
 <!--    <div class="main-posts ">-->
 	<div class="row">
-		<div class="sidebar col-sm-4 col-md-4">
+		<div class="sidebar col-sm-4 col-md-3">
     <div class="mini-submenu">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>

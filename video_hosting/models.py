@@ -60,7 +60,7 @@ class Video(models.Model):
         return Rating.objects.filter(video=self).aggregate(Count("rating"))["rating__count"] or 0
 
     def get_absolute_url(self):
-        return reverse("video", kwargs={"pk": self.pk})
+        return reverse("video", kwargs={"pk": self.id})
 
 
 class Comment(models.Model):
