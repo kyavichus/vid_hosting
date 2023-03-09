@@ -16,7 +16,7 @@ from .services import open_file
 def get_list_video(request):
     rating_table = {}
     for cat in Category.objects.all()[1:]:
-        vid = Video.objects.filter(category=cat).order_by('rating').first()
+        vid = Video.objects.filter(category=cat).order_by('-rating').first()
         rating_table[vid] = Rating.objects.filter(video=vid).first()
     category = Category.objects.all()
     page_num = request.GET.get('page', 1)
@@ -25,14 +25,14 @@ def get_list_video(request):
     if request.path == '/vote/':
         object_list = Video.objects.exclude(category=1).order_by("-id")
 
-        paginator = Paginator(object_list, 24, orphans=6)
+        paginator = Paginator(object_list, 24, orphans=3)
         page_obj = paginator.page(page_num)
         return render(request, 'video_hosting/home.html', {'video_list': page_obj,
                                                            'category': category,
                                                            'rating_table': rating_table})
     object_list = Video.objects.all().order_by('-id')
 
-    paginator = Paginator(object_list, 6, orphans=2)
+    paginator = Paginator(object_list, 24, orphans=3)
     page_obj = paginator.page(page_num)
     return render(request, 'video_hosting/home.html', {'video_list': page_obj,
                                                        'category': category,
